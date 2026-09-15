@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — API WORLD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">{ }</div>
+        API WORLD
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="marketplace.html">API Marketplace</a></li>
+        <li><a href="docs.html" class="active">Documentation</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="cart-btn" onclick="openCart()" aria-label="Open cart">
+          🛒
+          <span class="cart-count" id="cart-count" style="display:none;">0</span>
+        </button>
+        <a href="marketplace.html" class="btn btn-primary btn-sm">Browse APIs</a>
+        <button class="mobile-toggle" onclick="toggleMobileNav()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Documentation</h1>
+    <p>Everything you need to integrate API WORLD endpoints into your application.</p>
+  </div>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <h3>Getting Started</h3>
+      <ul class="docs-nav">
+        <li><a href="#introduction" class="active">Introduction</a></li>
+        <li><a href="#authentication">Authentication</a></li>
+        <li><a href="#rate-limits">Rate Limits</a></li>
+        <li><a href="#errors">Error Handling</a></li>
+      </ul>
+      <h3 style="margin-top:1.5rem;">Guides</h3>
+      <ul class="docs-nav">
+        <li><a href="#quickstart">Quickstart</a></li>
+        <li><a href="#pricing">Pricing & Plans</a></li>
+        <li><a href="#webhooks">Webhooks</a></li>
+      </ul>
+      <h3 style="margin-top:1.5rem;">Support</h3>
+      <ul class="docs-nav">
+        <li><a href="contact.html">Contact Support</a></li>
+      </ul>
+    </aside>
+
+    <main class="docs-content">
+      <h1 id="introduction">Introduction</h1>
+      <p>Welcome to the API WORLD developer documentation. All of our APIs follow RESTful conventions, return JSON, and are secured with API keys.</p>
+      <p>Base URL for all endpoints:</p>
+      <pre><code>https://api.apiworld.dev/v1/</code></pre>
+
+      <h2 id="authentication">Authentication</h2>
+      <p>Every request must include your API key in the <code>X-API-Key</code> header:</p>
+      <pre><code>curl -H "X-API-Key: YOUR_API_KEY" \
+  https://api.apiworld.dev/v1/weather?city=London</code></pre>
+      <p>You receive your unique key via email immediately after a successful PayPal payment. Keys are scoped to the products you purchased.</p>
+
+      <h2 id="rate-limits">Rate Limits</h2>
+      <p>Default rate limits by plan tier:</p>
+      <ul>
+        <li><strong>Starter</strong> — 1,000 requests / day</li>
+        <li><strong>Growth</strong> — 10,000 requests / day</li>
+        <li><strong>Scale</strong> — 100,000 requests / day</li>
+      </ul>
+      <p>Rate limit headers are returned on every response:</p>
+      <pre><code>X-RateLimit-Limit: 10000
+X-RateLimit-Remaining: 9842
+X-RateLimit-Reset: 1694784000</code></pre>
+
+      <h2 id="errors">Error Handling</h2>
+      <p>We use standard HTTP status codes. Error responses always include a machine-readable <code>code</code> and human-readable <code>message</code>:</p>
+      <pre><code>{
+  "error": {
+    "code": "invalid_api_key",
+    "message": "The provided API key is invalid or has been revoked."
+  }
+}</code></pre>
+      <ul>
+        <li><code>400</code> — Bad Request</li>
+        <li><code>401</code> — Unauthorized (missing/invalid key)</li>
+        <li><code>403</code> — Forbidden (key lacks permission for this endpoint)</li>
+        <li><code>429</code> — Too Many Requests</li>
+        <li><code>500</code> — Internal Server Error</li>
+      </ul>
+
+      <h2 id="quickstart">Quickstart</h2>
+      <p>1. Purchase an API from the <a href="marketplace.html">Marketplace</a> and complete PayPal checkout.</p>
+      <p>2. Check your email for the API key (arrives within seconds).</p>
+      <p>3. Make your first request:</p>
+      <pre><code>const response = await fetch(
+  'https://api.apiworld.dev/v1/weather?city=Tokyo',
+  {
+    headers: {
+      'X-API-Key': process.env.APIWORLD_KEY
+    }
+  }
+);
+const data = await response.json();
+console.log(data);</code></pre>
+
+      <h2 id="pricing">Pricing & Plans</h2>
+      <p>All products are billed monthly. Prices shown on the marketplace are the base monthly fee and include the Starter rate limit. You can upgrade rate limits at any time from your dashboard (coming soon).</p>
+      <p>Payments are processed exclusively through PayPal. We never store card details.</p>
+
+      <h2 id="webhooks">Webhooks</h2>
+      <p>Selected APIs (MarketData, CryptoTracker, NewsStream) support real-time webhooks. Configure your endpoint URL in the dashboard and we will POST signed events when relevant data changes.</p>
+      <pre><code>// Example webhook payload
+{
+  "event": "price.updated",
+  "symbol": "BTC-USD",
+  "price": 67241.35,
+  "timestamp": "2026-09-15T11:42:00Z"
+}</code></pre>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">{ }</div>
+          API WORLD
+        </a>
+        <p>The developer marketplace for premium software APIs.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="docs.html">Documentation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="admin.html">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2008 API WORLD. All rights reserved.</span>
+      <span>Payments exclusively via PayPal</span>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="close-cart" onclick="closeCart()">×</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-amount">$0</span>
+      </div>
+      <a href="checkout.html" class="btn btn-primary" id="checkout-btn" style="text-align:center;">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

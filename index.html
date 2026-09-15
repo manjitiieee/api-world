@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WORLD — Premium Software APIs Marketplace</title>
+  <meta name="description" content="Buy production-ready APIs for weather, finance, AI, data enrichment and more. Instant access with PayPal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">{ }</div>
+        API WORLD
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="marketplace.html">API Marketplace</a></li>
+        <li><a href="docs.html">Documentation</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="cart-btn" onclick="openCart()" aria-label="Open cart">
+          🛒
+          <span class="cart-count" id="cart-count" style="display:none;">0</span>
+        </button>
+        <a href="marketplace.html" class="btn btn-primary btn-sm">Browse APIs</a>
+        <button class="mobile-toggle" onclick="toggleMobileNav()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Power your apps with <span>production-ready APIs</span></h1>
+      <p>API WORLD is the developer marketplace for high-quality software APIs. Instant access, clear pricing, and rock-solid documentation — paid securely via PayPal.</p>
+      <div class="hero-actions">
+        <a href="marketplace.html" class="btn btn-primary btn-lg">Explore Marketplace</a>
+        <a href="docs.html" class="btn btn-secondary btn-lg">View Docs</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <h3>50+</h3>
+          <p>Premium APIs</p>
+        </div>
+        <div class="stat">
+          <h3>12k+</h3>
+          <p>Developers</p>
+        </div>
+        <div class="stat">
+          <h3>99.9%</h3>
+          <p>Uptime SLA</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-window">
+        <div class="code-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span style="margin-left:auto;font-size:0.75rem;color:var(--text-muted);">example.js</span>
+        </div>
+        <div class="code-body">
+          <span class="comment">// Get live weather in one call</span><br>
+          <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="func">fetch</span>(<br>
+          &nbsp;&nbsp;<span class="string">'https://api.apiworld.dev/v1/weather'</span>, {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;headers: { <span class="string">'X-API-Key'</span>: <span class="string">'YOUR_KEY'</span> }<br>
+          &nbsp;&nbsp;}<br>
+          );<br>
+          <span class="keyword">const</span> data = <span class="keyword">await</span> res.<span class="func">json</span>();<br>
+          <span class="comment">// → { temp: 22.4, condition: "Clear" }</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Browse by Category</h2>
+      <p>Find the right API for your use case in seconds</p>
+    </div>
+    <div class="categories">
+      <a href="marketplace.html?cat=Weather" class="category-card">
+        <div class="category-icon">🌤️</div>
+        <h3>Weather</h3>
+        <p>Forecasts & alerts</p>
+      </a>
+      <a href="marketplace.html?cat=Finance" class="category-card">
+        <div class="category-icon">📈</div>
+        <h3>Finance</h3>
+        <p>Markets & forex</p>
+      </a>
+      <a href="marketplace.html?cat=Data" class="category-card">
+        <div class="category-icon">🗃️</div>
+        <h3>Data</h3>
+        <p>Enrichment & news</p>
+      </a>
+      <a href="marketplace.html?cat=AI / ML" class="category-card">
+        <div class="category-icon">🤖</div>
+        <h3>AI / ML</h3>
+        <p>Vision & NLP</p>
+      </a>
+      <a href="marketplace.html?cat=Location" class="category-card">
+        <div class="category-icon">📍</div>
+        <h3>Location</h3>
+        <p>Geo & IP data</p>
+      </a>
+      <a href="marketplace.html?cat=Communication" class="category-card">
+        <div class="category-icon">💬</div>
+        <h3>Communication</h3>
+        <p>SMS & messaging</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <h2>Featured APIs</h2>
+      <p>Most popular endpoints trusted by thousands of developers</p>
+    </div>
+    <div class="product-grid" id="product-grid">
+      <!-- Filled by JS - will show first few -->
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="marketplace.html" class="btn btn-outline btn-lg">View All APIs →</a>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>From cart to first API call in under 5 minutes</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;">
+      <div class="category-card" style="text-align:left;cursor:default;">
+        <div class="category-icon">1️⃣</div>
+        <h3>Choose your APIs</h3>
+        <p>Browse the marketplace and add the endpoints you need to your cart.</p>
+      </div>
+      <div class="category-card" style="text-align:left;cursor:default;">
+        <div class="category-icon">2️⃣</div>
+        <h3>Pay with PayPal</h3>
+        <p>Secure checkout exclusively via PayPal. No credit card forms on our side.</p>
+      </div>
+      <div class="category-card" style="text-align:left;cursor:default;">
+        <div class="category-icon">3️⃣</div>
+        <h3>Get your API key</h3>
+        <p>Instant email delivery of your unique key and access to the docs.</p>
+      </div>
+      <div class="category-card" style="text-align:left;cursor:default;">
+        <div class="category-icon">4️⃣</div>
+        <h3>Start building</h3>
+        <p>Drop the key into your app and start making production requests.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align:center;">
+    <div style="background:linear-gradient(135deg,rgba(0,212,255,0.12),rgba(0,102,255,0.08));border:1px solid var(--border);border-radius:var(--radius);padding:3rem 2rem;">
+      <h2 style="font-size:1.8rem;margin-bottom:0.75rem;">Ready to supercharge your product?</h2>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;max-width:480px;margin-left:auto;margin-right:auto;">Join thousands of developers who ship faster with API WORLD.</p>
+      <a href="marketplace.html" class="btn btn-primary btn-lg">Start Browsing APIs</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">{ }</div>
+          API WORLD
+        </a>
+        <p>The developer marketplace for premium software APIs. Instant access, transparent pricing, PayPal-only payments.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="marketplace.html">Marketplace</a></li>
+          <li><a href="docs.html">Documentation</a></li>
+          <li><a href="docs.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">Support</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="admin.html">Admin Panel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2008 API WORLD. All rights reserved.</span>
+      <span>Payments exclusively via PayPal</span>
+    </div>
+  </footer>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="close-cart" onclick="closeCart()">×</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-amount">$0</span>
+      </div>
+      <a href="checkout.html" class="btn btn-primary" id="checkout-btn" style="text-align:center;">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Show featured products on home (from dynamic storage)
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('product-grid');
+      if (grid) {
+        PRODUCTS = loadProducts();
+        let featured = PRODUCTS.filter(p => p.badge === 'popular' || p.badge === 'new').slice(0, 6);
+        if (featured.length < 6) {
+          PRODUCTS.forEach(p => {
+            if (featured.length < 6 && !featured.find(f => f.id === p.id)) featured.push(p);
+          });
+        }
+        grid.innerHTML = featured.map(p => `
+          <div class="product-card">
+            <div class="product-header">
+              <span class="product-badge ${p.badge || ''}">${escapeHtml(p.badge || p.category)}</span>
+              <span style="color:var(--text-muted);font-size:0.8rem;">${p.endpoints || 0} endpoints</span>
+            </div>
+            <div class="product-body">
+              <h3>${escapeHtml(p.name)}</h3>
+              <p>${escapeHtml(p.description)}</p>
+              <div class="product-meta">
+                ${(p.tags || []).map(t => `<span class="meta-tag">${escapeHtml(t)}</span>`).join('')}
+              </div>
+            </div>
+            <div class="product-footer">
+              <div class="price">$${p.price}<span>/mo</span></div>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}')">Add to Cart</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

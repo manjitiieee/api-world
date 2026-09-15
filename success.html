@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful — API WORLD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">{ }</div>
+        API WORLD
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="marketplace.html">API Marketplace</a></li>
+        <li><a href="docs.html">Documentation</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="marketplace.html" class="btn btn-primary btn-sm">Browse APIs</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="success-box">
+    <div class="icon">✅</div>
+    <h2>Payment Successful!</h2>
+    <p>Thank you for your purchase. Your API keys have been sent to the email address you provided. You can start making requests immediately.</p>
+    
+    <div id="order-details" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;text-align:left;margin-bottom:2rem;">
+      <!-- Filled by JS -->
+    </div>
+
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="docs.html" class="btn btn-primary">Read the Docs</a>
+      <a href="marketplace.html" class="btn btn-secondary">Buy More APIs</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="border:none;padding-top:0;">
+      <span>© 2008 API WORLD. All rights reserved.</span>
+      <span>Payments exclusively via PayPal</span>
+    </div>
+  </footer>
+
+  <script>
+    const order = JSON.parse(localStorage.getItem('apiworld_last_order') || 'null');
+    const details = document.getElementById('order-details');
+    if (order) {
+      details.innerHTML = `
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.75rem;">Order ID</p>
+        <p style="font-family:var(--font-mono);font-size:1.1rem;margin-bottom:1.25rem;color:var(--accent);">${order.orderId}</p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;">Items</p>
+        ${order.items.map(i => `<p style="margin-bottom:0.35rem;">${i.name} × ${i.qty} — $${i.price * i.qty}/mo</p>`).join('')}
+        <p style="margin-top:1rem;font-weight:600;border-top:1px solid var(--border);padding-top:0.75rem;">Total: $${order.total}/mo</p>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:0.75rem;">Keys delivered to: ${order.email}</p>
+      `;
+    } else {
+      details.innerHTML = `<p style="color:var(--text-muted);">No recent order found. If you just paid, check your email for the keys.</p>`;
+    }
+  </script>
+</body>
+</html>
